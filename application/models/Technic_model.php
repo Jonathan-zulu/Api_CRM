@@ -18,15 +18,25 @@ class Technic_model extends CI_Model {
     }
 
     public function getTechnicalById($tecnico_id) {
-        $this->db->select('tecnico_id,
-                           tecnico_nombre, 
-                           tecnico_bloqueado, 
-                           tecnico_bloqueo_desde, 
-                           tecnico_bloqueo_hasta,
-                           tecnico_dni,
-                           tecnico_telefono');
+        $this->db->select('
+            mahico_tecnicos.tecnico_id,
+            mahico_tecnicos.tecnico_nombre, 
+            mahico_tecnicos.tecnico_bloqueado, 
+            mahico_tecnicos.tecnico_bloqueo_desde, 
+            mahico_tecnicos.tecnico_bloqueo_hasta,
+            mahico_tecnicos.tecnico_dni,
+            mahico_tecnicos.tecnico_telefono,
+            mahico_tecnicos.tecnico_precioxaviso,
+            mahico_tecnicos.tecnico_precioxaviso_climaygas,
+            mahico_tecnicos.tecnico_saldo,
+            mahico_provincias.provincia_nombre,
+            mahico_poblaciones.poblacion_nombre');
         $this->db->from('mahico_tecnicos');
-        $this->db->where('tecnico_id', $tecnico_id);
+        // JOIN con mahico_provincias para obtener el nombre de la provincia
+        $this->db->join('mahico_provincias', 'mahico_tecnicos.tecnico_provincia_id = mahico_provincias.provincia_id', 'left');
+        // JOIN con mahico_poblaciones para obtener el nombre de la población
+        $this->db->join('mahico_poblaciones', 'mahico_tecnicos.tecnico_poblacion_id = mahico_poblaciones.poblacion_id', 'left');
+        $this->db->where('mahico_tecnicos.tecnico_id', $tecnico_id);
         $query = $this->db->get();
 
         return $query->result_array();
