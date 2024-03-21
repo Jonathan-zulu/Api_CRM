@@ -16,4 +16,19 @@ class Technic_model extends CI_Model {
         
         return $query->result_array();
     }
+
+    public function getTechnicalById($tecnico_id) {
+        $this->db->select('tecnico_id,
+                           tecnico_nombre, 
+                           tecnico_bloqueado, 
+                           tecnico_bloqueado_desde, 
+                           tecnico_bloqueado_hasta,
+                           tecnico_dni,
+                           tecnico_telefono');
+        $this->db->from('mahico_tecnicos');
+        $this->db->where('tecnico_id', $tecnico_id);
+        $query = $this->db->get();
+
+        return = $this->db->get();
+    }
 }
