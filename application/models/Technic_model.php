@@ -21,14 +21,14 @@ class Technic_model extends CI_Model {
         $this->db->select('tecnico_id,
                            tecnico_nombre, 
                            tecnico_bloqueado, 
-                           tecnico_bloqueado_desde, 
-                           tecnico_bloqueado_hasta,
+                           tecnico_bloqueo_desde, 
+                           tecnico_bloqueo_hasta,
                            tecnico_dni,
                            tecnico_telefono');
         $this->db->from('mahico_tecnicos');
         $this->db->where('tecnico_id', $tecnico_id);
         $query = $this->db->get();
 
-        return = $this->db->get();
+        return $query->result_array();
     }
 }

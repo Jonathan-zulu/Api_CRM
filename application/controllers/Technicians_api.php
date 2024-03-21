@@ -58,7 +58,7 @@ class Technicians_api extends CI_Controller {
         }
 
         // Consultar el modelo para obtener datos
-        $tecnicos = $this->Technic_model->getTechnicalsById($technician_id);
+        $tecnicos = $this->Technic_model->getTechnicalById($technician_id);
 
         if (!empty($tecnicos)) {
             // Si se encontraron técnicos, enviar los datos
