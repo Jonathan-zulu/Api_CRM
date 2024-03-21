@@ -53,5 +53,6 @@ $route['default_controller'] = 'welcome';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['api/tecnico'] = 'Technicians_api/tecnicos_get';
+$route['api/tecnico-id'] = 'Technicians_api/tecnicos_getById';
 $route['prueba'] = 'prueba/index';
 
