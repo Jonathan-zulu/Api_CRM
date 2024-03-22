@@ -9,7 +9,7 @@ class Provinces_api extends CI_Controller {
     }
 
     public function index() {
-        $provinces = $this->Province_model->get_provincias();
+        $provinces = $this->Province_model->get_provinces();
 
         if (!empty($provinces)) {
             $this->output
