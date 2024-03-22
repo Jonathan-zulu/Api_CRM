@@ -71,4 +71,9 @@ class Technic_model extends CI_Model {
 
         return $query->result_array();
     }
+
+    public function insert_technician($data) {
+        $this->db->insert('mahico_tecnicos', $data);
+        return $this->db->insert_id();
+    }
 }
