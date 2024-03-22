@@ -106,7 +106,7 @@ class Technicians_api extends CI_Controller {
                  ->set_output(json_encode(['error' => $this->form_validation->error_array()]));
                  return;
         }
-        
+        $postData['tecnico_fecha_alta'] = date('Y-m-d H:i:s');
         $insertId = $this->Technic_model->insert_technician($postData);
 
         if($insertId) {
