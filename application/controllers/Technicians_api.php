@@ -74,4 +74,8 @@ class Technicians_api extends CI_Controller {
                  ->set_output(json_encode(['status' => FALSE, 'message' => 'No se encontraron técnicos para el id proporcionado']));
         }
     }
+
+    public function tecnicos_getInvoicesById() {
+        
+    }
 }
