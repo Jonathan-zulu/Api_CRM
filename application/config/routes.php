@@ -55,5 +55,6 @@ $route['translate_uri_dashes'] = FALSE;
 $route['api/tecnico'] = 'Technicians_api/tecnicos_get';
 $route['api/tecnico-id'] = 'Technicians_api/tecnicos_getById';
 $route['api/tecnico/register'] = 'Technicians_api/register';
+$route['api/provincias'] = 'Provinces_api/index';
 $route['prueba'] = 'prueba/index';
 
