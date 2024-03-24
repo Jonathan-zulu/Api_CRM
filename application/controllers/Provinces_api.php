@@ -6,6 +6,11 @@ class Provinces_api extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model('Province_model');
+        $this->load->library('form_validation');
+        // Permitir acceso desde cualquier origen
+        header('Access-Control-Allow-Origin: *');
+        // Establecer el tipo de contenido a JSON
+        header('Content-Type: application/json');
     }
 
     public function index() {
