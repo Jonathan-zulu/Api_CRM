@@ -81,6 +81,9 @@ class Technicians_api extends CI_Controller {
     }
 
     public function register() {
+        header('Access-Control-Allow-Origin: *');
+
+        header('Content-Type: application/json');
         if($this->input->server('REQUEST_METHOD') !== 'POST') {
             $this->output
                  ->set_content_type('application/json')
