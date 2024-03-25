@@ -12,18 +12,15 @@ class Login_api extends CI_Controller {
 
     public function index() {
         if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+            header('Access-Control-Allow-Origin: *');
             header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
-            header('Access-Control-Allow-Methods: POST, OPTIONS');
-            exit(0);
+            header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
+            exit;
         }
 
-        if ($this->input->server('REQUEST_METHOD') !== 'POST') {
-            $this->output
-                 ->set_content_type('application/json')
-                 ->set_status_header(405)
-                 ->set_output(json_encode(['error' => 'Method not allowed']));
-            return;
-        }
+        header('Access-Control-Allow-Origin: *');
+
+        header('Content-Type: application/json');
 
         $postData = json_decode($this->input->raw_input_stream, true);
 
