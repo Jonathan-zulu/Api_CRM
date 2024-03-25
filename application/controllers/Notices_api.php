@@ -13,7 +13,9 @@ class Notices_api extends CI_Controller {
         header('Content-Type: application/json');
     }
 
-    public function avisosPorTecnico($tecnico_id) {
+    public function notices_getById() {
+        $tecnico_id = $this->input->get('id');
+
         $notices = $this->Notice_model->getNoticesById($tecnico_id);
         if (!empty($notices)) {
             $this->output

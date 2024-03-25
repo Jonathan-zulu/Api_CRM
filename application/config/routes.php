@@ -57,5 +57,6 @@ $route['api/tecnico-id'] = 'Technicians_api/tecnicos_getById';
 $route['api/tecnico/register'] = 'Technicians_api/register';
 $route['api/provincias'] = 'Provinces_api/index';
 $route['api/login'] = 'Login_api/index';
+$route['api/avisos-tecnico-id'] = 'Notices_api/notices_getById';
 $route['prueba'] = 'prueba/index';
 
