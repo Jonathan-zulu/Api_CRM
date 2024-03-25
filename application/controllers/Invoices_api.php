@@ -16,7 +16,7 @@ class Invoices_api extends CI_Controller {
     public function invoices_getById() {
         $tecnico_id = $this->input->get('id');
 
-        $invoices = $this->Notice_model->getInvoicesById($tecnico_id);
+        $invoices = $this->Invoice_model->getInvoicesById($tecnico_id);
         if (!empty($invoices)) {
             $this->output
                  ->set_content_type('application/json')
@@ -26,7 +26,7 @@ class Invoices_api extends CI_Controller {
             $this->output
                  ->set_content_type('application/json')
                  ->set_status_header(404)
-                 ->set_output(json_encode(['message' => 'No se encontraron avisos para el técnico especificado']));
+                 ->set_output(json_encode(['message' => 'No se encontraron facturas para el técnico especificado']));
         }
     }
 }
