@@ -46,32 +46,50 @@ class Technicians_api extends CI_Controller {
     }
 
     public function tecnicos_getById() {
-        // Obtener el Id de la consulta
-        $technician_id = $this->input->get('id');
-
-        if (!$technician_id) {
-            // Enviar respuesta si no se proporciona el Id
+        $headers = $this->input->request_headers();
+        $token = isset($headers['Authorization']) ? str_replace('Bearer ', '', $headers['Authorization']) : null;
+    
+        if (!$token) {
             $this->output
                  ->set_content_type('application/json')
-                 ->set_status_header(400) // HTTP Status Code: Bad Request
+                 ->set_status_header(401) // Unauthorized
+                 ->set_output(json_encode(['error' => 'Token no proporcionado o inválido']));
+            return;
+        }
+    
+        $this->load->library('jwthandler');
+        $validation = $this->jwthandler->validateToken($token);
+    
+        if (!$validation['valid']) {
+            $this->output
+                 ->set_content_type('application/json')
+                 ->set_status_header(401) // Unauthorized
+                 ->set_output(json_encode(['error' => 'Token no válido o expirado']));
+            return;
+        }
+    
+        $technician_id = $this->input->get('id');
+        if (!$technician_id) {
+            $this->output
+                 ->set_content_type('application/json')
+                 ->set_status_header(400) // Bad Request
                  ->set_output(json_encode(['status' => FALSE, 'message' => 'No se proporcionó el id']));
             return;
         }
-
+    
         // Consultar el modelo para obtener datos
         $tecnicos = $this->Technic_model->getTechnicalById($technician_id);
-
         if (!empty($tecnicos)) {
             // Si se encontraron técnicos, enviar los datos
             $this->output
                  ->set_content_type('application/json')
-                 ->set_status_header(200) // HTTP Status Code: OK
+                 ->set_status_header(200) // OK
                  ->set_output(json_encode($tecnicos));
         } else {
             // Si no se encontraron técnicos, enviar un mensaje de error
             $this->output
                  ->set_content_type('application/json')
-                 ->set_status_header(404) // HTTP Status Code: Not Found
+                 ->set_status_header(404) // Not Found
                  ->set_output(json_encode(['status' => FALSE, 'message' => 'No se encontraron técnicos para el id proporcionado']));
         }
     }
