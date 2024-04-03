@@ -57,7 +57,7 @@ class Technicians_api extends CI_Controller {
             return;
         }
     
-        $this->load->library('jwthandler');
+        $this->load->library('JwtHandler');
         $validation = $this->jwthandler->validateToken($token);
     
         if (!$validation['valid']) {

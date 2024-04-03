@@ -34,7 +34,7 @@ class Login_api extends CI_Controller {
         $user = $this->User_model->verify_user($postData['tecnico_nombre'], $postData['tecnico_password']);
     
         if ($user) {
-            $this->load->library('jwthandler');
+            $this->load->library('JwtHandler');
             $token = $this->jwthandler->generateToken(['tecnico_id' => $user['tecnico_id']]);
     
             // Incluyendo el token en la respuesta
