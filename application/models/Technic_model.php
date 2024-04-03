@@ -17,6 +17,17 @@ class Technic_model extends CI_Model {
         return $query->result_array();
     }
 
+    public function getOffices() {
+        $this->db->select('
+            o.oficio_id,
+            o.oficio_descripcion
+        ',);
+        $this->db->from('mahico_oficios');
+        $query = $this->db->get();
+
+        return $query->result_array();
+    }
+
     public function getTechnicalById($tecnico_id) {
         $this->db->select('
             mahico_tecnicos.tecnico_id,
