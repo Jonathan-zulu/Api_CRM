@@ -95,7 +95,21 @@ class Technicians_api extends CI_Controller {
     }
 
     public function offices() {
-        
+        $tecnicos = $this->Technic_model->getVisibleOffices();
+
+        if (!empty($tecnicos)) {
+            // Si se encontraron oficios, enviar los datos
+            $this->output
+                 ->set_content_type('application/json')
+                 ->set_status_header(200) // HTTP Status Code: OK
+                 ->set_output(json_encode($tecnicos));
+        } else {
+            // Si no se encontraron oficios, enviar un mensaje de error
+            $this->output
+                 ->set_content_type('application/json')
+                 ->set_status_header(404) // HTTP Status Code: Not Found
+                 ->set_output(json_encode(['status' => FALSE, 'message' => 'No se encontraron oficios']));
+        }
     }
 
     public function register() {
