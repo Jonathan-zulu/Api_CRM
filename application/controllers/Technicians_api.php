@@ -112,6 +112,49 @@ class Technicians_api extends CI_Controller {
         }
     }
 
+    public function getTechniciasAvailable() {
+        if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+            header('Access-Control-Allow-Origin: *');
+            header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
+            header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
+            exit;
+        }
+    
+        header('Access-Control-Allow-Origin: *');
+        header('Content-Type: application/json');
+        if ($this->input->server('REQUEST_METHOD') !== 'POST') {
+            $this->output
+                ->set_content_type('application/json')
+                ->set_status_header(405)
+                ->set_output(json_encode(['error' => 'Method not allowed']));
+            return;
+        }
+    
+        $postData = json_decode($this->input->raw_input_stream, true);
+    
+        if (!isset($postData['codigo_postal']) || !isset($postData['oficio_id'])) {
+            $this->output
+                ->set_content_type('application/json')
+                ->set_status_header(400) // HTTP 400 Bad Request
+                ->set_output(json_encode(['error' => 'Faltan datos necesarios para la consulta.']));
+            return;
+        }
+    
+        $availableTechnicians = $this->Technic_model->getAvailableTechnicians($postData['codigo_postal'], $postData['oficio_id']);
+    
+        if ($availableTechnicians) {
+            $this->output
+                ->set_content_type('application/json')
+                ->set_status_header(200) // HTTP 200 OK
+                ->set_output(json_encode($availableTechnicians));
+        } else {
+            $this->output
+                ->set_content_type('application/json')
+                ->set_status_header(404) // HTTP 404 Not Found
+                ->set_output(json_encode(['message' => 'No se encontraron técnicos disponibles.']));
+        }
+    }
+
     public function register() {
         
         if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
