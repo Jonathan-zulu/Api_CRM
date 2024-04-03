@@ -94,7 +94,7 @@ class Technicians_api extends CI_Controller {
         }
     }
 
-    public function offices() {
+    public function getOffices() {
         $tecnicos = $this->Technic_model->getVisibleOffices();
 
         if (!empty($tecnicos)) {

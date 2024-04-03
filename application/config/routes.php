@@ -60,5 +60,6 @@ $route['api/login'] = 'Login_api/index';
 $route['api/avisos-tecnico-id'] = 'Notices_api/notices_getById';
 $route['api/facturas-tecnico-id'] = 'Invoices_api/invoices_getById';
 $route['api/trazas-tecnico-id'] = 'Traces_api/traces_getById';
+$route['api/oficios'] = 'Technicians_api/getOffices';
 $route['prueba'] = 'prueba/index';
 
