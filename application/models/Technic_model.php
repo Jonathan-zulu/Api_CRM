@@ -17,12 +17,13 @@ class Technic_model extends CI_Model {
         return $query->result_array();
     }
 
-    public function getOffices() {
+    public function getVisibleOffices() {
         $this->db->select('
             o.oficio_id,
             o.oficio_descripcion
         ',);
-        $this->db->from('mahico_oficios');
+        $this->db->where('oficio_visible', 'SI');
+        $this->db->from('mahico_oficios o');
         $query = $this->db->get();
 
         return $query->result_array();

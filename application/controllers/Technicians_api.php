@@ -94,6 +94,10 @@ class Technicians_api extends CI_Controller {
         }
     }
 
+    public function offices() {
+        
+    }
+
     public function register() {
         
         if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
