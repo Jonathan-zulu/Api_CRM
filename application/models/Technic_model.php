@@ -29,6 +29,23 @@ class Technic_model extends CI_Model {
         return $query->result_array();
     }
 
+    public function getAvailableTechnicians($zipCode, $jobId) {
+        $sql = "SELECT * FROM mahico_tecnicos t 
+                WHERE tecnico_bloqueado = 'NO' 
+                AND t.tecnico_activo >= 0
+                AND NOT ((t.tecnico_bloqueo_desde <= NOW() AND t.tecnico_bloqueo_desde <> '0000-00-00 00:00:00')
+                AND (t.tecnico_bloqueo_hasta >= NOW() AND t.tecnico_bloqueo_hasta <> '0000-00-00 00:00:00'))
+                AND ((t.tecnico_compra_avisos = 'SI' AND t.tecnico_saldo > 15) OR (t.tecnico_compra_avisos = 'NO'))
+                AND tecnico_id IN (SELECT tecnico_id FROM mahico_tecnicos_oficios WHERE oficio_id IN (?))
+                AND tecnico_id IN (SELECT tecnico_id FROM mahico_tecnicos_cps p, codigos_postales_geo g
+                                   WHERE p.codigo_postal_id = g.codigo_postal_id AND g.codigo_postal_cp = ?)
+                ORDER BY t.tecnico_prioridad DESC, t.tecnico_compra_avisos DESC, t.tecnico_plan_id";
+        
+        $query = $this->db->query($sql, array($zipCode, $jobId));
+        
+        return $query->result_array();
+    }
+
     public function getTechnicalById($tecnico_id) {
         $this->db->select('
             mahico_tecnicos.tecnico_id,
