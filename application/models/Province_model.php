@@ -7,7 +7,7 @@ class Province_model extends CI_Model {
         $this->load->database();
     }
 
-
+    // Método para obtener todas las provincias
     public function get_provinces() {
         $this->db->select('provincia_id, provincia_cp, provincia_nombre, provincia_capital, provincia_ca, provincia_autonomia');
         $this->db->from('mahico_provincias');

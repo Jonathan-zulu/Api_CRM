@@ -8,6 +8,7 @@ class Invoice_model extends CI_Model {
         $this->load->database();
     }
 
+    // Método para obtener las facturas asociadas a un técnico por su ID
     public function getInvoicesById($tecnico_id) {
         $this->db->select('
             f.factura_id,

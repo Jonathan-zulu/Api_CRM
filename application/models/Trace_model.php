@@ -8,6 +8,7 @@ class Trace_model extends CI_Model {
         $this->load->database();
     }
 
+    // Método para obtener trazas por ID de técnico
     public function getTracesById($tecnico_id) {
         $this->db->select('
             t.traza_id,
@@ -21,6 +22,7 @@ class Trace_model extends CI_Model {
             e.estado_descripcion,
             t.traza_tpv_id',);
         $this->db->from('mahico_trazas t');
+        // Realiza una serie de JOIN para obtener datos de otras tablas relacionadas
         $this->db->join('mahico_avisos a', 't.traza_aviso_id = a.aviso_id', 'left');
         $this->db->join('mahico_estados e', 't.traza_estado_id = e.estado_id', 'left');
         $this->db->where('t.traza_tecnico_id', $tecnico_id);

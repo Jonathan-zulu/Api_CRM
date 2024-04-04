@@ -11,7 +11,7 @@ class User_model extends CI_Model {
     // Método para verificar las credenciales del técnico
     public function verify_user($username, $password) {
         $this->db->where('tecnico_nombre', $username);
-        $this->db->where('tecnico_password', $password); // Considera hashear las contraseñas en producción
+        $this->db->where('tecnico_password', $password);
         $query = $this->db->get('mahico_tecnicos');
 
         if ($query->num_rows() === 1) {

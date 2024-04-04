@@ -8,6 +8,7 @@ class Technic_model extends CI_Model {
         $this->load->database();
     }
 
+    // Método para obtener los técnicos por código postal
     public function getTechnicalsByZc($zipCode) {
         $this->db->select('tecnico_nombre, tecnico_telefono');
         $this->db->from('mahico_tecnicos');
@@ -17,6 +18,7 @@ class Technic_model extends CI_Model {
         return $query->result_array();
     }
 
+    // Método para obtener los oficios visibles
     public function getVisibleOffices() {
         $this->db->select('
             o.oficio_id,
@@ -29,6 +31,7 @@ class Technic_model extends CI_Model {
         return $query->result_array();
     }
 
+    // Método para obtener los técnicos disponibles por código postal y oficio
     public function getAvailableTechnicians($codigo_postal_cp, $oficio_id) {
         $sql = "SELECT t.tecnico_nombre, t.tecnico_telefono, t.tecnico_id FROM mahico_tecnicos t 
                 WHERE tecnico_bloqueado = 'NO' 
@@ -46,6 +49,7 @@ class Technic_model extends CI_Model {
         return $query->result_array();
     }
 
+    // Método para obtener información de un técnico por su ID
     public function getTechnicalById($tecnico_id) {
         $this->db->select('
             mahico_tecnicos.tecnico_id,
@@ -63,11 +67,9 @@ class Technic_model extends CI_Model {
             mahico_poblaciones.poblacion_nombre,
             mahico_oficios.oficio_descripcion',);
         $this->db->from('mahico_tecnicos');
-        // JOIN con mahico_provincias para obtener el nombre de la provincia
+        // Realiza una serie de JOIN para obtener datos de otras tablas relacionadas
         $this->db->join('mahico_provincias', 'mahico_tecnicos.tecnico_provincia_id = mahico_provincias.provincia_id', 'left');
-        // JOIN con mahico_poblaciones para obtener el nombre de la población
         $this->db->join('mahico_poblaciones', 'mahico_tecnicos.tecnico_poblacion_id = mahico_poblaciones.poblacion_id', 'left');
-        // JOIN con mahico_oficios para obtener el nombre del oficio
         $this->db->join('mahico_oficios', 'mahico_tecnicos.tecnico_oficio_id = mahico_oficios.oficio_id', 'left');
         $this->db->where('mahico_tecnicos.tecnico_id', $tecnico_id);
         $query = $this->db->get();
@@ -75,6 +77,7 @@ class Technic_model extends CI_Model {
         return $query->result_array();
     }
 
+    // Método para obtener una factura por ID de té cnico
     public function getInvoiceById($tecnico_id) {
         $this->db->select('
             factura_id,
@@ -91,9 +94,8 @@ class Technic_model extends CI_Model {
             factura_cobrada,
             factura_documento_pago');
         $this->db->from('mahico_tecnicos');
-        // JOIN con mahico_provincias para obtener el nombre de la provincia
+        // Realiza una serie de JOIN para obtener datos de otras tablas relacionadas
         $this->db->join('mahico_provincias', 'mahico_tecnicos.tecnico_provincia_id = mahico_provincias.provincia_id', 'left');
-        // JOIN con mahico_poblaciones para obtener el nombre de la población
         $this->db->join('mahico_poblaciones', 'mahico_tecnicos.tecnico_poblacion_id = mahico_poblaciones.poblacion_id', 'left');
         $this->db->where('mahico_tecnicos.tecnico_id', $tecnico_id);
         $query = $this->db->get();
@@ -101,6 +103,7 @@ class Technic_model extends CI_Model {
         return $query->result_array();
     }
 
+    // Método para insertar un técnico en la base de datos
     public function insert_technician($data) {
         $this->db->insert('mahico_tecnicos', $data);
         return $this->db->insert_id();
